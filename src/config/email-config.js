@@ -10,6 +10,7 @@ const sender = nodemailer.createTransport({
         user: EMAIL_ID,
         pass: EMAIL_PASS,
     },
+    
 });
 
 
