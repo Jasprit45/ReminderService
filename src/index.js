@@ -4,7 +4,7 @@ const {PORT} = require('./config/serverconfig');
 const cron = require('node-cron');
 const {sendBasicEmail,check} = require('./services/email-service');
 const jobs = require('./utils/job');
-const EmailController  =require('./controller/email-controller')
+const apiRoutes = require('./routes/index');
 
 const setupAndStartServer = async() => {
 
@@ -13,23 +13,13 @@ const setupAndStartServer = async() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
 
-    app.post('/api/v1/tickets',EmailController.create);
+    app.use('/api',apiRoutes);
 
     app.listen(PORT,async () => {
         console.log(`Server started at ${PORT}`);
 
         check(); //for checking the smtp server
 
-        // sendBasicEmail(
-        //     'support@admin.com',
-        //     'sardarjasprit3118@gmail.com',
-        //     'This is a testing email',
-        //     'Hey, how are you'
-        // );
-
-        // cron.schedule('*/2 * * * *', () => {
-        //     console.log('running a task every two minute');
-        // });
         jobs();
 
     })
