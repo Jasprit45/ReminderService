@@ -8,7 +8,6 @@ const jobs = require('./utils/job');
 
 const {REMINDER_BINDING_KEY} = require('./config/serverconfig');
 const {subscribeMessage ,createChannel}  =require('./utils/messageQueue')
-// const  TicketController = require('./controller/email-controller');
 const EmailService = require('./services/email-service');
 const apiRoutes = require('./routes/index');
 
@@ -21,7 +20,6 @@ const setupAndStartServer = async() => {
 
     app.use('/api',apiRoutes);
 
-    // app.post('/api/v1/tickets', TicketController.create);
 
     const channel = await createChannel();
     subscribeMessage(channel,EmailService.subscribeEvents,REMINDER_BINDING_KEY);
